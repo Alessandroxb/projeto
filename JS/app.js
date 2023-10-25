@@ -1,17 +1,18 @@
 import {app, db} from "./config-firebase.js"
-import {doc, setDoc, collection, addDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
+import {doc, setDoc, collection, addDoc, query, where, getDocs, orderBy} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
 
 let nome = document.querySelector("#tarefa")
 let data = document.querySelector("#data")
 let status = document.querySelector("#status")
 let btnTarefa = document.querySelector("#btnTarefa")
+let bloco =  document.querySelector("#bloco")
 
-async function inserirTarefas(){
+async function inserirTarefa(){
     try {
         const docRef = await addDoc(collection(db, "tarefas"), {
-            nome: "nome.value",
-            data: "data.value",
-            status: "status.value"
+            nome: nome.value,
+            data: data.value,
+            status: status.value
           });
           console.log("Document written with ID: ", docRef.id);
         
@@ -23,8 +24,38 @@ async function inserirTarefas(){
 
 }
 
+async function consultarTarefa(){
+    const busca = query(collection(db, "tarefas"), orderBy("nome"));
+
+    const resultado = await getDocs(busca);
+    resultado.forEach((item) => {
+    console.log(item.id, "=>", item.data())
+        bloco.innerHTML += `
+        <li class="list-group-item d-flex justify-content-between align-items-center mb-2">
+                          <div class="ms-2 me-auto">
+                            <strong>Nome:</strong> ${item.data().nome} <br>
+                            <strong>Data:</strong> ${item.data().data} <br>
+                            <strong>Status:</strong> ${item.data().status} <br>
+                          </div>
+
+                          <div class="d-flex gap-2">
+
+                            <button class="btn btn-outline-danger" id="excluir">Excluir</button>
+                            <button class="btn btn-outline-info" id="alterar">Alterar</button>
+
+                          </div>
+
+                        </li>
+        `
+    })
+
+}
+
 btnTarefa.addEventListener("click",(evento)=>{
     evento.preventDefault()
     console.log(nome.value, data.value, status.value)
-    inserirTarefas
+    inserirTarefa()
+    consultarTarefa()
 })
+
+consultarTarefa()

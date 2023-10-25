@@ -13,10 +13,10 @@
         <h1 class="text-center my-5">Gerenciador de tarefas</h1>
 
         <section class="container">
-            <section class="row">
+            <section class="row g-3">
                 <!-- Formulário de tarefas -->
                 <div class="col-md-6">
-                    <form action="" class="row g-8">
+                    <form action="" class="row g-3">
                         <div>
                             <label for="tarefa">Nome da tarefa</label>
                             <input type="text" name="tarefa" id="tarefa" class="form-control">
@@ -35,14 +35,31 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-outline-primary" id="btnTarefa">Cadastrar tarefa</button>
+                            <button type="submit" class="btn btn-outline-primary " id="btnTarefa">Cadastrar tarefa</button>
 
                         </div>
                     </form>
                 </div>
                 <!-- Exibindo as tarefas -->
                 <div class="col-md-6">
-       
+
+                    <ol class="list-group list-group-numbered" id="bloco">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <div class="ms-2 me-auto">
+                            <strong>Nome:</strong> Fulano <br>
+                            <strong>Data:</strong> 2023-10-25 <br>
+                            <strong>Status:</strong> concluído <br>
+                          </div>
+
+                          <div class="d-flex gap-2">
+
+                            <button class="btn btn-outline-danger" id="excluir">Excluir</button>
+                            <button class="btn btn-outline-info" id="alterar">Alterar</button>
+
+                          </div>
+
+                        </li>
+                      </ol>
 
                 </div>
 
